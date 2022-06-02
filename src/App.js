@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { getCurrency } from './api';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getCurrency()
+      .then(res => setData(res))
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React and Hello world!
-        </a>
-      </header>
+      <h1>
+        You are working!
+      </h1>
+      {data.length > 0 && (
+        <ul>
+          {data.map(item => (
+            <li>
+              {item.ccy}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
